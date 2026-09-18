@@ -7,13 +7,20 @@
 
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        if not p and not q:
+        if p is None and q is None:
             return True
         
-        if p and q and p.val == q.val:
-            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-        else:
+        elif p is None or q is None:
             return False
+
+        elif p and q and p.val != q.val:
+            return False
+        
+        l = self.isSameTree(p.left, q.left)
+        r = self.isSameTree(p.right, q.right)
+
+        return l and r
+
 
 
 
