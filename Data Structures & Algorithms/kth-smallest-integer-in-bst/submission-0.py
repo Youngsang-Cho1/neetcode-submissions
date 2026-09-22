@@ -7,19 +7,12 @@
 
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        inorder = []
-        def dfs(root):
-            if root == None:
-                return 
+        res = []
+        def inorder(root):
             if root.left:
-                dfs(root.left)
-
-            inorder.append(root.val)
-
+                inorder(root.left)
+            res.append(root.val)
             if root.right:
-                dfs(root.right)
-            
-
-        dfs(root)
-        return inorder[k-1]
-
+                inorder(root.right)
+        inorder(root)
+        return res[k-1]
