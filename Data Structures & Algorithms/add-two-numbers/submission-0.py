@@ -6,31 +6,31 @@
 
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        num1, num2 = '', ''
+        first_list = []
+        curr = l1
+        while curr:
+            first_list.append(str(curr.val))
+            curr = curr.next
         
-        while l1:
-            num1 = str(l1.val) + num1
-            l1 = l1.next
-        while l2:
-            num2 = str(l2.val) + num2
-            l2 = l2.next
-        two_sum = str(int(num1) + int(num2))
-        # print(num1, num2, two_sum)
-        
-        head = ListNode(int(two_sum[-1]))
-        res = head
-        
-        for i in range(len(two_sum) - 2, -1, -1):
-            # print(i)
-            curr = ListNode(int(two_sum[i]))
-            head.next = curr
-            head = head.next
+        first_num = int(''.join(first_list[::-1]))
 
-        return res
-            
-            
+        second_list = []
+        curr = l2
+        while curr:
+            second_list.append(str(curr.val))
+            curr = curr.next
 
+        second_num = int(''.join(second_list[::-1]))
 
-        
+        total = first_num + second_num
+        total_list = (str(total)[::-1])
 
+        head = ListNode()
+        curr = head
+        for i in range(len(total_list)):
+            next_node = ListNode()
+            next_node.val = int(total_list[i])
+            curr.next = next_node
+            curr = curr.next
+        return head.next
         
