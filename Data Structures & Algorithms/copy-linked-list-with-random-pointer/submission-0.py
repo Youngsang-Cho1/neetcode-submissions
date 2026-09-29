@@ -15,15 +15,10 @@ class Solution:
             copy = Node(curr.val)
             copy_dict[curr] = copy
             curr = curr.next
+
         curr = head
         while curr:
             copy_dict[curr].next = copy_dict[curr.next]
             copy_dict[curr].random = copy_dict[curr.random]
             curr = curr.next
         return copy_dict[head]
-        
-
-
-
-            
-        
