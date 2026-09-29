@@ -1,24 +1,17 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        ans_list = []
-        ans_set = set()
         nums.sort()
-        for i in range(0, len(nums)):
-            curr = nums[i]
-            l = i + 1
-            r = len(nums) - 1
-            while l < r:
-                print(l, r)
-                three_sum = curr + nums[l] + nums[r]
-                if three_sum == 0:
-                    if (curr, nums[l], nums[r]) not in ans_set:
-                        ans_list.append([curr, nums[l], nums[r]])
-                        ans_set.add((curr, nums[l], nums[r]))
-                    l += 1
-                    r -= 1
-                elif three_sum < 0:
-                    l += 1
-                else:
-                    r -= 1
-                
-        return ans_list
+        d = Counter(nums)
+        res = set()
+        for l in range(len(nums)-2):
+            r = l + 1
+            while r < len(nums):
+                d[nums[l]] -= 1
+                d[nums[r]] -= 1
+                target = -(nums[l] + nums[r])
+                if target in d and d[target] > 0:
+                    res.add(tuple(sorted([nums[l], nums[r], target])))
+                d[nums[l]] += 1
+                d[nums[r]] += 1
+                r += 1
+        return list(res)
