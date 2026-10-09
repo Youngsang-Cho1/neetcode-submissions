@@ -1,19 +1,22 @@
 class Solution:
     def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
-        res = []
-
-        def dfs(i, curr, total):
-            if total == target:
-                res.append(curr.copy())
+        visited = set()
+        def backtrack(idx, path):
+            curr_sum = sum(path)
+            if curr_sum > target:
                 return
-            elif total > target or i >= len(nums):
+            if curr_sum == target and tuple(path) not in visited:
+                visited.add(tuple(path))
+            if idx == len(nums):
                 return 
-            curr.append(nums[i])
+            
+            path.append(nums[idx])
+            backtrack(idx, path)
+            path.pop()
+            backtrack(idx+1, path)
+            
+        backtrack(0, [])
+        return [list(elem) for elem in visited]
+            
 
-            dfs(i, curr, total + nums[i])
-            curr.pop()
-
-            dfs(i+1, curr, total)
-        
-        dfs(0, [], 0)
-        return res
+                
